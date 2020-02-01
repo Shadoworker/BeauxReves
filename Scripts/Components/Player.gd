@@ -66,7 +66,7 @@ func _on_Repair_btn_button_down():
 		
 		var tween = new_repairer.get_node("Tween")
 		
-		tween.interpolate_property(new_repairer  , "global_position" , $flush_container.global_position , target_locker.global_position , .5, Tween.TRANS_LINEAR , Tween.EASE_IN )
+		tween.interpolate_property(new_repairer  , "global_position" , $flush_container.global_position , target_locker.global_position , 2.0, Tween.TRANS_LINEAR , Tween.EASE_IN )
 		tween.start()
 		
 		pass

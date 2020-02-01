@@ -1,5 +1,6 @@
 extends KinematicBody2D
  
+var minionizingTimer = Timer.new()
 
 var raycast : RayCast2D
 
@@ -18,7 +19,9 @@ func _physics_process(delta):
 		if(collider.is_in_group("monsters")):
 			collider.modulate = Color(0,255,0)
 			queue_free()
+#			collider.get_node("Anim").play("monster_fade_in" , -1, 0.5)
 	
 	pass
+
 
  
