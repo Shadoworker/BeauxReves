@@ -1,23 +1,12 @@
 extends Node2D
 
-# Virtual Joystick
-# Author : Komang Buda Artha
-#License:  You're free to use these game in any project, personal or commercial. 
-#There's no need to ask permission before using these. 
-#Giving attribution is not required, but is greatly appreciated!
-
-# For any Question :
-# Youtube : https://www.youtube.com/channel/UCMif1Mgqy-8tgiiByFlqg6w
-# FB : https://www.facebook.com/mang.buda.9
-
-# You can scaling controller using this variabel 
+  
 export var SCALE = 1
 export var trigered = false
-
-#Parameter Output, You can use this variabel to read the Joystick output
-var IsTouched = false # Flag if Joystick are touched or not
-var Angle = 0 # The Angle (degre) Bettwen center of the Joystick and button
-var Strength = 0 # Paramater how far button are touched, value(0-1)
+ 
+var IsTouched = false  
+var Angle = 0  
+var Strength = 0  
 
 var Radius = 70
 var MousePos = Vector2()
