@@ -16,8 +16,13 @@ _global_script_class_icons={
 [application]
 
 config/name="BeauxReves"
-run/main_scene="res://Scenes/Levels/Main.tscn"
+run/main_scene="res://Scenes/Screens/Menu.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+SignalsManager="*res://Scripts/Common/SignalsManager.gd"
+StageManager="*res://Scripts/Common/StageManager.gd"
 
 [display]
 

@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scripts/Components/Boy.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Characters/small_boy.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 28.1092, 27.254 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "boy_scared"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 1, 1.7, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0.356863, 0.356863, 1 ), Color( 1, 1, 1, 1 ), Color( 0.968627, 0.345098, 0.345098, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[node name="Boy" type="KinematicBody2D" groups=[
+"boy",
+]]
+position = Vector2( -179.019, 145.936 )
+scale = Vector2( 0.712195, 0.712195 )
+input_pickable = true
+script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 1.40687, -7.15256e-007 )
+scale = Vector2( 0.264706, 0.264706 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=[
+"boy",
+]]
+position = Vector2( 1.40411, 0 )
+shape = SubResource( 1 )
+
+[node name="Anim" type="AnimationPlayer" parent="."]
+anims/boy_scared = SubResource( 2 )
+
+[node name="Tween" type="Tween" parent="."]

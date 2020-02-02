@@ -1,8 +1,118 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scripts/Components/Analog.gd" type="Script" id=1]
 [ext_resource path="res://Assets/UI/Radius.png" type="Texture" id=2]
 [ext_resource path="res://Assets/UI/joystick_btn.png" type="Texture" id=3]
+[ext_resource path="res://Scenes/Components/Dir_ray.gd" type="Script" id=4]
+[ext_resource path="res://Scenes/Components/Dir.tscn" type="PackedScene" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 22.772, 19.971 )
+
+[sub_resource type="GDScript" id=7]
+script/source = "extends Area2D
+
+# Declare member variables here. Examples:
+# var a: int = 2
+# var b: String = \"text\"
+export var dir : String = \"TOP\"
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta: float) -> void:
+#	pass
+
+
+func _on_DOWN_body_entered(body: PhysicsBody2D) -> void:
+	SignalsManager.emit_signal(\"_s_broDirection\" , dir)
+	pass # Replace with function body.
+"
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends Area2D
+
+# Declare member variables here. Examples:
+# var a: int = 2
+# var b: String = \"text\"
+export var dir : String = \"TOP\"
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta: float) -> void:
+#	pass
+
+
+func _on_DOWN_body_entered(body: PhysicsBody2D) -> void:
+	SignalsManager.emit_signal(\"_s_broDirection\" , dir)
+	pass # Replace with function body.
+"
+
+[sub_resource type="GDScript" id=4]
+script/source = "extends Area2D
+
+# Declare member variables here. Examples:
+# var a: int = 2
+# var b: String = \"text\"
+export var dir : String = \"TOP\"
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta: float) -> void:
+#	pass
+
+
+func _on_DOWN_body_entered(body: PhysicsBody2D) -> void:
+	SignalsManager.emit_signal(\"_s_broDirection\" , dir)
+	pass # Replace with function body.
+"
+
+[sub_resource type="GDScript" id=5]
+script/source = "extends Area2D
+
+# Declare member variables here. Examples:
+# var a: int = 2
+# var b: String = \"text\"
+export var dir : String = \"TOP\"
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta: float) -> void:
+#	pass
+
+
+func _on_DOWN_body_entered(body: PhysicsBody2D) -> void:
+	SignalsManager.emit_signal(\"_s_broDirection\" , dir)
+	pass # Replace with function body.
+"
+
+[sub_resource type="GDScript" id=6]
+script/source = "extends Area2D
+
+# Declare member variables here. Examples:
+# var a: int = 2
+# var b: String = \"text\"
+export var dir : String = \"TOP\"
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta: float) -> void:
+#	pass
+
+
+func _on_DOWN_body_entered(body: PhysicsBody2D) -> void:
+	SignalsManager.emit_signal(\"_s_broDirection\" , dir)
+	pass # Replace with function body.
+"
 
 [node name="Analog" type="Node2D"]
 script = ExtResource( 1 )
@@ -18,11 +128,25 @@ __meta__ = {
 }
 
 [node name="Button" type="Sprite" parent="."]
-modulate = Color( 0.0156863, 0.501961, 0.631373, 1 )
+modulate = Color( 0.0156863, 0.631373, 0.356863, 1 )
 texture = ExtResource( 3 )
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="RigidBody2D" type="RigidBody2D" parent="Button"]
+mode = 3
+script = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Button/RigidBody2D"]
+shape = SubResource( 1 )
+one_way_collision = true
+
+[node name="dir_ray" type="RayCast2D" parent="Button/RigidBody2D"]
+enabled = true
+cast_to = Vector2( 0, 30 )
+collide_with_areas = true
+collide_with_bodies = false
 
 [node name="Label" type="Label" parent="."]
 visible = false
@@ -31,3 +155,30 @@ margin_top = -61.0
 margin_right = 456.0
 margin_bottom = -47.0
 text = "Label"
+
+[node name="TOP" parent="." instance=ExtResource( 5 )]
+position = Vector2( -0.5, -45 )
+script = SubResource( 7 )
+
+[node name="DOWN" parent="." instance=ExtResource( 5 )]
+script = SubResource( 2 )
+dir = "DOWN"
+
+[node name="LEFT" parent="." instance=ExtResource( 5 )]
+position = Vector2( -52, 4 )
+rotation = 1.55885
+script = SubResource( 4 )
+dir = "LEFT"
+
+[node name="RIGHT" parent="." instance=ExtResource( 5 )]
+position = Vector2( 53, 4 )
+rotation = 1.55885
+script = SubResource( 5 )
+dir = "RIGHT"
+
+[node name="IDLE" parent="." instance=ExtResource( 5 )]
+position = Vector2( -3.8147e-006, 1.5 )
+rotation = 1.55885
+scale = Vector2( 0.599551, 1 )
+script = SubResource( 6 )
+dir = "IDLE"
