@@ -26,6 +26,14 @@ func _ready():
 
 func _physics_process(delta):
 	
+	
+	if(Input.is_mouse_button_pressed(BUTTON_LEFT)):
+		
+		__Repair()
+		
+		pass
+	
+	
 	var Analog = $"../../../UI_screen/Dir_btns/canvas/Analog"
 	# Conversion calculation  
 	if (Analog.get("trigered") == true):
@@ -82,6 +90,32 @@ func __dir_motion(dir):
 	pass
 
 func _on_Repair_btn_button_down():
+	
+	$"../../../UI_screen/Dir_btns/canvas/Repair_btn/Anim".play("repairer", -1, 2)
+	
+	if target_locked == true :
+		
+		# FLUUSH ANIMATION IN monster's direction : which is now target_locker dir 
+		
+		var new_repairer = repairer.duplicate(15)
+		
+		$RayCast2D/flush_container.add_child(new_repairer)
+		
+		var tween = new_repairer.get_node("Tween")
+		
+		var angle = $RayCast2D/flush_container.global_position.angle_to(target_locker.global_position)
+		
+		new_repairer.rotation = rad2deg(angle)
+		
+		tween.interpolate_property(new_repairer  , "global_position" , $RayCast2D/flush_container.global_position, target_locker.global_position , 2.0, Tween.TRANS_LINEAR , Tween.EASE_IN )
+		tween.start()
+		
+		pass
+	
+	pass # Replace with function body.
+
+
+func __Repair():
 	
 	$"../../../UI_screen/Dir_btns/canvas/Repair_btn/Anim".play("repairer", -1, 2)
 	

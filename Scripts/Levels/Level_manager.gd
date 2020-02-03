@@ -10,6 +10,8 @@ var flux = 1
 
 var next_level_timer = Timer.new()
 
+var _timer = Timer.new()
+var seconds = 240
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
@@ -21,11 +23,31 @@ func _ready() -> void:
 
 	SignalsManager.connect("_s_monsterEnded", self , "__goto_next_level")
 
+	
+	__countdown()
+	__timer()
+
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta: float) -> void:
-#	pass
+func _process(delta: float) -> void:
+	
+	if(seconds == 0 or flux == 0):
+		var joy = $Stage/Characters/Boy.get("joy")
+		
+		if(joy <= 50 ):
+			
+			__game_over()
+			
+		else:
+			
+			__init_load_next_level()
+			
+			pass
+		
+		pass
+	
+	pass
 
 func __bro_damaged():
 	
@@ -92,11 +114,11 @@ func __toy_repaired():
 	
 func __check_monster():
 	
-	if(flux == 0):
-		
-		__init_load_next_level()
-		
-		pass
+#	if(flux == 0):
+#
+#		__init_load_next_level()
+#
+#		pass
 	
 	pass
 	
@@ -154,4 +176,38 @@ func __init_goto_next_level():
 	add_child(goto_timer)
 	goto_timer.start()	
 
+	pass
+	
+
+func __countdown():
+	
+	seconds -= 1
+	
+	var minutes = seconds / 60
+	
+	var secs = seconds % 60
+	
+	var secs_string = str(secs)
+	var secs_string2 = secs_string[0] + secs_string[1]
+	
+	$UI_screen/Dir_btns/canvas/countdown.text = str(minutes , " : " , secs_string2)
+	
+	pass
+
+	
+func __timer():
+
+	_timer.one_shot = false
+	_timer.wait_time = 1
+	_timer.connect("timeout", self, "__countdown")
+	add_child(_timer)
+	_timer.start()	
+
+	pass
+	
+	
+func __game_over():
+	
+	StageManager.goto_scene("res://Scenes/Screens/GameOver.tscn")
+	
 	pass
