@@ -1,13 +1,40 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/Components/Monster.gd" type="Script" id=1]
-[ext_resource path="res://Assets/UI/Radius.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Items/peluche.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 70.099, 69.9755 )
 
 [sub_resource type="Animation" id=2]
-resource_name = "monster_fade_in"
+resource_name = "minionize_scale"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.5, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0.25, 0.25 ) ]
+}
+
+[sub_resource type="Animation" id=3]
 length = 3.0
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
@@ -16,10 +43,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 3 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 1.5, 3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
 [node name="Monster" type="RigidBody2D" groups=[
@@ -29,12 +56,21 @@ mode = 3
 script = ExtResource( 1 )
 
 [node name="monster_sprite" type="Sprite" parent="."]
-modulate = Color( 0.415686, 0.415686, 0.427451, 1 )
+position = Vector2( 6.36395, -2.12589 )
+scale = Vector2( 0.439766, 0.439766 )
 texture = ExtResource( 2 )
+hframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 one_way_collision = true
 
 [node name="Anim" type="AnimationPlayer" parent="."]
-anims/monster_fade_in = SubResource( 2 )
+anims/minionize_scale = SubResource( 2 )
+anims/monster_fade_in = SubResource( 3 )
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="Monster_weapon" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 0, 100 )

@@ -14,10 +14,14 @@ var MobileMode = false
 var TouchPos = Vector2()
 var InIndex = -1
 
+var dir_ray : RayCast2D
+
 func _ready():
 	Radius = Radius * SCALE
 	$Radius.scale = Vector2(SCALE,SCALE)
 	$Button.scale = Vector2(SCALE,SCALE)
+
+	dir_ray = $Button/RigidBody2D/dir_ray
 
 	pass
 	
